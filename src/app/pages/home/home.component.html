@@ -1,1 +1,7 @@
 <app-header></app-header>
+
+<div *ngIf="bookmarks$ | async as bookmarks">
+  <div *ngFor="let item of bookmarks; let i = index">
+    <span>{{ item.name }}</span>
+  </div>
+</div>
