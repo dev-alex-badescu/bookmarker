@@ -1,27 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { MatGridListModule } from '@angular/material/grid-list';
+import { InputComponent } from '../../controls/input/input.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatToolbarModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-
-    MatGridListModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
+  imports: [InputComponent, MatToolbarModule, MatIconModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
