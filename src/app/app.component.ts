@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { HeaderComponent } from './shared/components/header/header.component';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,7 @@ import { RouterOutlet } from '@angular/router';
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [RouterOutlet],
+  imports: [RouterModule, HeaderComponent],
 })
 export class AppComponent {
   title = 'Bookmarker';

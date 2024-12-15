@@ -1,18 +1,18 @@
 import { Routes } from '@angular/router';
+import { bookmarkRoutes } from './routes/bookmark.routes';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {
     path: 'home',
-    loadComponent: () =>
-      import('./pages/home/home.component').then((m) => m.HomeComponent),
+    children: bookmarkRoutes,
   },
   {
     path: '**',
-    redirectTo: '/home',
+    redirectTo: 'home',
   },
 ];

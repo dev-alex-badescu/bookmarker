@@ -5,11 +5,12 @@ import { CardComponent } from '../../shared/components/card/card.component';
 import { IBookmark } from '../../models/IBookmark.model';
 import { Observable } from 'rxjs';
 import { BookmarkService } from '../../services/bookmark/bookmark.service';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-bookmark',
   standalone: true,
-  imports: [CommonModule, BookmarkCardComponent, CardComponent],
+  imports: [CommonModule, BookmarkCardComponent, CardComponent, RouterLink],
   templateUrl: './bookmark.component.html',
   styleUrl: './bookmark.component.css',
 })
@@ -20,5 +21,7 @@ export class BookmarkComponent implements OnInit {
 
   ngOnInit(): void {
     this.bookmarks$ = this.bookmarkService.getAllBookmarks();
+
+    console.log('trebiue sa intre aici');
   }
 }

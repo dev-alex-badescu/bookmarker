@@ -1,5 +1,7 @@
 <mat-toolbar color="primary">
-  <span>{{ title }}</span>
+  <span>
+    <a [routerLink]="['/', 'home']">{{ title }} </a>
+  </span>
 
   <span class="space"></span>
 
@@ -7,5 +9,5 @@
 
   <span class="space"></span>
 
-  <mat-icon>add</mat-icon>
+  <a [routerLink]="['/', 'home', 'add']"> <mat-icon>add</mat-icon></a>
 </mat-toolbar>
