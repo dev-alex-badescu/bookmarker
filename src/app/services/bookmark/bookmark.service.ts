@@ -12,7 +12,8 @@ export class BookmarkService {
 
   constructor(private repositoryService: RepositoryService) {}
 
-  getAllBookmarks(): Observable<IBookmark[]> {
+  getBookmarks(): Observable<IBookmark[]> {
+    console.log('Fetching all bookmarks...');
     return this.repositoryService.getAll<IBookmark>(this.bookmarksUrl);
   }
 

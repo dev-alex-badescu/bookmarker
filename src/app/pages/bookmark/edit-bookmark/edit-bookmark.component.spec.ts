@@ -8,9 +8,8 @@ describe('EditBookmarkComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditBookmarkComponent]
-    })
-    .compileComponents();
+      imports: [EditBookmarkComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EditBookmarkComponent);
     component = fixture.componentInstance;

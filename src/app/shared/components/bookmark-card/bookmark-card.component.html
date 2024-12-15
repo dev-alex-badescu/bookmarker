@@ -7,15 +7,15 @@
           <div class="d-grid" style="padding: 0px 10px">
             <span>{{ bookmark.name }}</span>
             <span
-              ><a [href]="bookmark.resourceLink">{{
-                bookmark.resourceLink
-              }}</a></span
+              ><a [href]="bookmark.url">{{ bookmark.url }}</a></span
             >
           </div>
         </div>
 
         <div class="column end">
-          <span><mat-icon>edit</mat-icon></span>
+          <span [routerLink]="['/', 'home', bookmark.id]"
+            ><mat-icon>edit</mat-icon></span
+          >
         </div>
       </div>
     </div>

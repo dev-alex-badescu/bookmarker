@@ -42,6 +42,8 @@ export class RepositoryService {
       errorMessage = `Server returned code ${error.status}, message was: ${error.message}`;
     }
     console.error(errorMessage);
+    console.log('The error is:', errorMessage);
+
     return throwError(() => new Error(errorMessage));
   }
 }

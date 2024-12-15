@@ -1,1 +1,53 @@
-<p>edit-bookmark works!</p>
+<app-header></app-header>
+
+<div *ngIf="bookmark">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
+    <mat-card>
+      <mat-card-header>
+        <h2>Edit Existing Bookmark</h2>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            formControlName="name"
+            placeholder="Enter your name"
+          />
+          <mat-error
+            *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
+          >
+            Name is required.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Resource Link</mat-label>
+          <input
+            matInput
+            formControlName="resourceLink"
+            placeholder="Enter the resource link"
+          />
+          <mat-error
+            *ngIf="
+              form.get('resourceLink')?.invalid &&
+              form.get('resourceLink')?.touched
+            "
+          >
+            Resource link is required.
+          </mat-error>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="form.invalid"
+        >
+          Update Bookmark
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
