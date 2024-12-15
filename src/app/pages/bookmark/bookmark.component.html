@@ -1,1 +1,7 @@
-<p>bookmark works!</p>
+<div *ngIf="bookmarks$ | async as bookmarks">
+  <app-card>
+    <div content *ngFor="let item of bookmarks">
+      <app-bookmark-card [bookmark]="item"></app-bookmark-card>
+    </div>
+  </app-card>
+</div>

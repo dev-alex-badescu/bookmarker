@@ -1,0 +1,9 @@
+<mat-grid-list
+  *ngFor="let item of gridList; let i = index"
+  [cols]="columnsLength"
+  [rowHeight]="rowHeight"
+>
+  <mat-grid-tile colspan="1" class="left-align">
+    <span *ngIf="i === item.indexText"> {{ item.text }}</span>
+  </mat-grid-tile>
+</mat-grid-list>

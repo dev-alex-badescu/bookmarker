@@ -1,0 +1,23 @@
+<div *ngIf="bookmark">
+  <app-card>
+    <div content>
+      <div class="row">
+        <div class="column start d-flex align-center">
+          <span><mat-icon>bookmark</mat-icon></span>
+          <div class="d-grid" style="padding: 0px 10px">
+            <span>{{ bookmark.name }}</span>
+            <span
+              ><a [href]="bookmark.resourceLink">{{
+                bookmark.resourceLink
+              }}</a></span
+            >
+          </div>
+        </div>
+
+        <div class="column end">
+          <span><mat-icon>edit</mat-icon></span>
+        </div>
+      </div>
+    </div>
+  </app-card>
+</div>
