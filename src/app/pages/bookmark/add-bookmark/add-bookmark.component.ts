@@ -62,13 +62,13 @@ export class AddBookmarkComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       const date = new Date();
-      const dateString = date.toISOString().split('T')[0];
+      date.setDate(date.getDate());
 
       const bookmark: IBookmark = {
         name: this.nameFormControl.value as string,
         url: this.urlFormControl.value as string,
-        createdAt: dateString,
-        updatedAt: dateString,
+        createdAt: date,
+        updatedAt: date,
       };
 
       this.bookmarkStateService.dispatchCreateBookmark(bookmark);

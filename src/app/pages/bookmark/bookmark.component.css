@@ -1,0 +1,8 @@
+.bookmark-container {
+    margin: 40px 100px; 
+    height: calc(100vh - 80px); 
+    overflow-y: auto; 
+    border: 1px solid #ccc;
+    padding: 20px; 
+    box-sizing: border-box; 
+}

@@ -16,6 +16,7 @@ import {
 import { Update } from '@ngrx/entity';
 import { IBookmark } from '../../models/IBookmark.model';
 import { ToastService } from '../../shared/services/toast/toast.service';
+import { BookmarkStateService } from '../services/bookmark-state/bookmark-state.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,7 @@ import { ToastService } from '../../shared/services/toast/toast.service';
 export class BookmarkEffects {
   constructor(
     private bookmarkService: BookmarkService,
+    private bookmarkStateService: BookmarkStateService,
     private toastService: ToastService
   ) {}
 
@@ -32,7 +34,9 @@ export class BookmarkEffects {
       switchMap(() => {
         return this.bookmarkService.getBookmarks().pipe(
           map((bookmarks) => {
-            return loadBookmarksSuccess({ bookmarks });
+            return loadBookmarksSuccess({
+              bookmarks: this.orderByDate(bookmarks),
+            });
           }),
           catchError((error) => {
             return of(loadBookmarksFail({ error }));
@@ -66,10 +70,10 @@ export class BookmarkEffects {
   updateBookmark$ = createEffect(() => {
     return inject(Actions).pipe(
       ofType(updateBookmark),
-      exhaustMap((action) => {
+      switchMap((action) => {
         return this.bookmarkService.updateBookmark(action.bookmark).pipe(
           map(() => {
-            const activityRoom: Update<IBookmark> = {
+            const bookmark: Update<IBookmark> = {
               id: action.bookmark.id ?? 0,
               changes: {
                 ...action.bookmark,
@@ -79,7 +83,7 @@ export class BookmarkEffects {
               `${action.bookmark.name} bookmark has been updated!`
             );
             return updateBookmarkSuccess({
-              bookmark: activityRoom,
+              bookmark: bookmark,
             });
           }),
           catchError((error) => {
@@ -90,4 +94,26 @@ export class BookmarkEffects {
       })
     );
   });
+
+  // updateBookmarkSuccess$ = createEffect(
+  //   () => {
+  //     return inject(Actions).pipe(
+  //       ofType(updateBookmarkSuccess),
+  //       tap(() => {
+  //         console.log('DAAAAA INTRA AICI');
+  //         this.bookmarkStateService.dispatchLoadBookmarks();
+  //       })
+  //     );
+  //   },
+  //   { dispatch: false }
+  // );
+
+  private orderByDate(bookmarks: IBookmark[]) {
+    const sortedBookmarks = bookmarks.sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    );
+
+    return sortedBookmarks;
+  }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { IBookmark } from '../../models/IBookmark.model';
 import { RepositoryService } from '../repository/repository.service';
 import { BaseUrls } from '../../shared/consts/baseUrls.const';

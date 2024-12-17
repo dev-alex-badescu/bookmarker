@@ -1,5 +1,7 @@
 body {
     margin: 0;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .row {
@@ -40,7 +42,7 @@ body {
     align-items: center;
   }
 
-  .form-container {
+  .center-container {
     display: flex;             
     justify-content: center;    
     align-items: center;                 

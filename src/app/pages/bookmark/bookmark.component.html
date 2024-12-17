@@ -1,7 +1,29 @@
-<div *ngIf="bookmarks$ | async as bookmarks">
+<ng-container
+  *ngIf="(bookmarkLoading$ | async) === false; else loading"
+  class="bookmarker-container"
+>
   <app-card>
-    <div content *ngFor="let item of bookmarks">
-      <app-bookmark-card [bookmark]="item"></app-bookmark-card>
+    <div content>
+      <h3>Today</h3>
+      <div *ngFor="let item of todayBookmarks$ | async">
+        <app-bookmark-card [bookmark]="item"></app-bookmark-card>
+      </div>
+
+      <h3>Yesterday</h3>
+      <div *ngFor="let item of yesterdayBookmarks$ | async">
+        <app-bookmark-card [bookmark]="item"></app-bookmark-card>
+      </div>
+
+      <h3>Older</h3>
+      <div *ngFor="let item of olderBookmarks$ | async">
+        <app-bookmark-card [bookmark]="item"></app-bookmark-card>
+      </div>
     </div>
   </app-card>
-</div>
+</ng-container>
+
+<ng-template content #loading>
+  <ng-container *ngIf="bookmarkLoading$ | async as bookmarkLoading">
+    <app-spinner [visibility]="bookmarkLoading"></app-spinner>
+  </ng-container>
+</ng-template>

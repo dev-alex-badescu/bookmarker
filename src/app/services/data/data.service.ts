@@ -45,6 +45,6 @@ export class DataService implements InMemoryDbService {
   private getDateDaysAgo(daysAgo: number = 0) {
     const date = new Date();
     date.setDate(date.getDate() - daysAgo);
-    return date.toISOString();
+    return date;
   }
 }

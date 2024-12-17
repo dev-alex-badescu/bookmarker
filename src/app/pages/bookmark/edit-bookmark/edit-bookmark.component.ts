@@ -69,14 +69,14 @@ export class EditBookmarkComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       const date = new Date();
-      const dateString = date.toISOString().split('T')[0];
+      date.setDate(date.getDate());
 
-      const updatedAt = dateString;
+      const updatedAt = date;
 
       const bookmark = {
         ...this.bookmark,
         updatedAt,
-        createdAt: this.bookmark?.createdAt || '',
+        createdAt: this.bookmark?.createdAt || new Date(),
         name: this.nameFormControl.value || '',
         url: this.urlFormControl.value || '',
       };

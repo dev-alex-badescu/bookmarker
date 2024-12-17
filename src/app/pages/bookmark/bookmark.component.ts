@@ -3,11 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { BookmarkCardComponent } from '../../shared/components/bookmark-card/bookmark-card.component';
 import { CardComponent } from '../../shared/components/card/card.component';
 import { IBookmark } from '../../models/IBookmark.model';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { BookmarkStateService } from '../../state/services/bookmark-state/bookmark-state.service';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner/spinner.component';
+import { TimeRangeFilter } from '../../shared/consts/timeRangeFilter.const';
 
 @Component({
   selector: 'app-bookmark',
@@ -24,13 +25,25 @@ import { SpinnerComponent } from '../../shared/components/spinner/spinner/spinne
   styleUrl: './bookmark.component.css',
 })
 export class BookmarkComponent implements OnInit {
-  bookmarks$?: Observable<IBookmark[]>;
+  todayBookmarks$?: Observable<IBookmark[]>;
+  yesterdayBookmarks$?: Observable<IBookmark[]>;
+  olderBookmarks$?: Observable<IBookmark[]>;
   bookmarkLoading$?: Observable<boolean>;
 
   constructor(private bookmarkStateService: BookmarkStateService) {}
 
   ngOnInit(): void {
     this.bookmarkLoading$ = this.bookmarkStateService.getBookmarkLoading();
-    this.bookmarks$ = this.bookmarkStateService.getBookmarks();
+    this.todayBookmarks$ = this.bookmarkStateService.getBookmarks(
+      TimeRangeFilter.Today
+    );
+
+    this.yesterdayBookmarks$ = this.bookmarkStateService.getBookmarks(
+      TimeRangeFilter.Yesterday
+    );
+
+    this.olderBookmarks$ = this.bookmarkStateService.getBookmarks(
+      TimeRangeFilter.Older
+    );
   }
 }

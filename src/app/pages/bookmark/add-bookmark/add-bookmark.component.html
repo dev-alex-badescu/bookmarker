@@ -1,6 +1,6 @@
 <app-header></app-header>
 <ng-container *ngIf="(bookmarkLoading$ | async) === false; else loading">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="center-container">
     <mat-card>
       <mat-card-header class="card-header">
         <div class="header-content">
