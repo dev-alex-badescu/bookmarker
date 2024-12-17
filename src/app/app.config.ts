@@ -23,7 +23,6 @@ import { CustomRouterStateSerializer } from './state/router/router-custom-serial
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideStore(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideClientHydration(),
     provideAnimationsAsync(),

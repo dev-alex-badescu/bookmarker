@@ -8,7 +8,6 @@
     ></app-input>
   </div>
 </app-header>
-<app-bookmark></app-bookmark>
 
 <ng-container *ngIf="searchFormControl.value">
   <div>Results for "{{ searchFormControl.value }}"</div>
@@ -16,3 +15,5 @@
     <app-bookmark-card [bookmark]="item"></app-bookmark-card>
   </div>
 </ng-container>
+
+<router-outlet></router-outlet>

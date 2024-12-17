@@ -9,11 +9,13 @@ import { provideEffects } from '@ngrx/effects';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'home/bookmark',
     pathMatch: 'full',
   },
   {
     path: 'home',
+    loadComponent: () =>
+      import('./pages/home/home.component').then((m) => m.HomeComponent),
     providers: [
       provideState(BOOKMARK_STATE_NAME, bookmarkReducer),
       provideEffects(BookmarkEffects),
@@ -22,6 +24,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'home',
+    redirectTo: 'home/bookmark',
   },
 ];

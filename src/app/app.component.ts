@@ -6,7 +6,6 @@ import { ToastComponent } from './shared/components/toast/toast/toast.component'
 import { CommonModule } from '@angular/common';
 import { SpinnerComponent } from './shared/components/spinner/spinner/spinner.component';
 import { InputComponent } from './shared/controls/input/input.component';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',

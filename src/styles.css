@@ -48,3 +48,10 @@ body {
     align-items: center;                 
           
   }
+
+  .button-effect {
+    cursor: pointer; 
+    padding: 5px;
+    transition: transform 0.2s ease-in-out; 
+  }
+  

@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <div class="column start">
-    <h2 [routerLink]="['/', 'home']">
+    <h2 class="button-effect" [routerLink]="['/', 'home', 'bookmark']">
       {{ title }}
     </h2>
   </div>
@@ -10,6 +10,8 @@
   </div>
 
   <div class="column end">
-    <span [routerLink]="['/', 'home', 'add']"> <mat-icon>add</mat-icon></span>
+    <span class="button-effect" [routerLink]="['/', 'home', 'bookmark', 'add']">
+      <mat-icon>add</mat-icon></span
+    >
   </div>
 </mat-toolbar>

@@ -14,6 +14,7 @@ import {
 import { IBookmark } from '../../models/IBookmark.model';
 import { BookmarkCardComponent } from '../../shared/components/bookmark-card/bookmark-card.component';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -24,6 +25,7 @@ import { CommonModule } from '@angular/common';
     InputComponent,
     BookmarkCardComponent,
     CommonModule,
+    RouterModule,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',

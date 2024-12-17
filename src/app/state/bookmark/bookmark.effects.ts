@@ -100,7 +100,7 @@ export class BookmarkEffects {
       return inject(Actions).pipe(
         ofType(createBookmarkSuccess),
         tap(() => {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/home/bookmark']);
         })
       );
     },
@@ -112,7 +112,7 @@ export class BookmarkEffects {
       return inject(Actions).pipe(
         ofType(updateBookmarkSuccess),
         tap(() => {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/home/bookmark']);
         })
       );
     },
