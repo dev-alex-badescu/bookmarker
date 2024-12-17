@@ -1,46 +1,43 @@
 <app-header></app-header>
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
-  <mat-card>
-    <mat-card-header>
-      <h2>Create New Bookmark</h2>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-form-field appearance="outline">
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" placeholder="Enter your name" />
-        <mat-error
-          *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
+<ng-container *ngIf="(bookmarkLoading$ | async) === false; else loading">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
+    <mat-card>
+      <mat-card-header class="card-header">
+        <div class="header-content">
+          <h2>Create New Bookmark</h2>
+          <span>Type bookmark name and url</span>
+        </div>
+        <mat-icon class="bookmark-icon">bookmark_border</mat-icon>
+      </mat-card-header>
+      <mat-card-content>
+        <app-input
+          placeholder="Enter name"
+          label="Name"
+          [control]="nameFormControl"
+        ></app-input>
+        <app-input
+          placeholder="Enter URL"
+          label="URL"
+          [control]="urlFormControl"
+        ></app-input>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions class="actions">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="form.invalid"
         >
-          Name is required.
-        </mat-error>
-      </mat-form-field>
+          Create Bookmark
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</ng-container>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Resource Link</mat-label>
-        <input
-          matInput
-          formControlName="resourceLink"
-          placeholder="Enter the resource link"
-        />
-        <mat-error
-          *ngIf="
-            form.get('resourceLink')?.invalid &&
-            form.get('resourceLink')?.touched
-          "
-        >
-          Resource link is required.
-        </mat-error>
-      </mat-form-field>
-    </mat-card-content>
-    <mat-card-actions>
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        [disabled]="form.invalid"
-      >
-        Create New Bookmark
-      </button>
-    </mat-card-actions>
-  </mat-card>
-</form>
+<ng-template content #loading>
+  <ng-container *ngIf="bookmarkLoading$ | async as bookmarkLoading">
+    <app-spinner [visibility]="bookmarkLoading"></app-spinner>
+  </ng-container>
+</ng-template>

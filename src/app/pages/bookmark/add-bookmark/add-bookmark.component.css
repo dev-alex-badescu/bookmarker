@@ -1,0 +1,11 @@
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px;
+  }
+
+  .medium-container {
+    max-width: 1200px;
+    width: 100%;
+  }

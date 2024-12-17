@@ -8,7 +8,7 @@ import {
   UPDATE_BOOKMARK_ACTION,
   UPDATE_BOOKMARK_FAIL_ACTION,
   UPDATE_BOOKMARK_SUCCESS_ACTION,
-} from '../shared/consts/store-actions.consts';
+} from '../shared/consts/bookmark-store-actions.consts';
 import { Update } from '@ngrx/entity';
 import { IBookmark } from '../../models/IBookmark.model';
 

@@ -1,5 +1,11 @@
-<mat-form-field>
-  <mat-label>{{ placeholder }}</mat-label>
-  <mat-icon matPrefix>{{ icon }}</mat-icon>
-  <input matInput />
+<mat-form-field appearance="outline">
+  <mat-label>{{ label }}</mat-label>
+  <mat-icon matPrefix *ngIf="icon">{{ icon }}</mat-icon>
+  <input matInput [formControl]="control" [placeholder]="placeholder" />
+  <mat-error *ngIf="control?.invalid && control?.touched">
+    {{ label }} is required.
+  </mat-error>
+  <mat-error *ngIf="control?.errors?.['invalidUrl'] && control?.touched">
+    Please enter a valid URL.
+  </mat-error>
 </mat-form-field>

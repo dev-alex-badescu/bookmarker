@@ -1,0 +1,21 @@
+.toast {
+    position: fixed; /* Afișat relativ la viewport */
+    top: 20px; /* Poziționat 20px de la partea de sus */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    z-index: 10000; /* Prioritate mare pentru a fi deasupra altor elemente */
+  }
+  
+  .success {
+    background-color: #4caf50; /* Verde pentru succes */
+  }
+  
+  .error {
+    background-color: #f44336; /* Roșu pentru eroare */
+  }
+  

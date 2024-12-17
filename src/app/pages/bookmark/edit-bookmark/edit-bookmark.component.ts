@@ -1,23 +1,25 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IBookmark } from '../../../models/IBookmark.model';
-
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import {
-  FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
-import { Store } from '@ngrx/store';
-import { BookmarkState } from '../../../state/shared/models/bookmark-state.model';
-import { getBookmarkById } from '../../../state/bookmark/bookmark.selector';
-import { updateBookmark } from '../../../state/bookmark/bookmark.actions';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { InputComponent } from '../../../shared/controls/input/input.component';
+import { BookmarkStateService } from '../../../state/services/bookmark-state/bookmark-state.service';
+import { Observable } from 'rxjs';
+import { SpinnerComponent } from '../../../shared/components/spinner/spinner/spinner.component';
+import { urlValidator } from '../../../shared/validators/url.validator';
 
 @Component({
   selector: 'app-edit-bookmark',
@@ -31,6 +33,10 @@ import { updateBookmark } from '../../../state/bookmark/bookmark.actions';
     ReactiveFormsModule,
     MatCardModule,
     HeaderComponent,
+    MatIconModule,
+    MatDividerModule,
+    InputComponent,
+    SpinnerComponent,
   ],
   templateUrl: './edit-bookmark.component.html',
   styleUrl: './edit-bookmark.component.css',
@@ -38,25 +44,25 @@ import { updateBookmark } from '../../../state/bookmark/bookmark.actions';
 export class EditBookmarkComponent implements OnInit {
   @Input() bookmark?: IBookmark | null;
 
-  form: FormGroup;
+  bookmarkLoading$?: Observable<boolean>;
 
-  constructor(
-    private store: Store<BookmarkState>,
-    private formBuilder: FormBuilder
-  ) {
-    this.form = this.formBuilder.group({
-      name: ['', Validators.required],
-      resourceLink: ['', Validators.required],
-    });
-  }
+  nameFormControl = new FormControl('', Validators.required);
+  urlFormControl = new FormControl('', [Validators.required, urlValidator()]);
+
+  form = new FormGroup({
+    nameFormControl: this.nameFormControl,
+    urlFormControl: this.urlFormControl,
+  });
+
+  constructor(private bookmarkStateService: BookmarkStateService) {}
 
   ngOnInit(): void {
-    this.store.select(getBookmarkById()).subscribe((bookmark) => {
-      console.log('bookmark-->', bookmark);
-
-      this.form.get('name')?.setValue(bookmark?.name),
-        this.form.get('resourceLink')?.setValue(bookmark?.url),
-        (this.bookmark = bookmark);
+    this.bookmarkLoading$ = this.bookmarkStateService.getBookmarkLoading();
+    //TODO: DISTORY THIS
+    this.bookmarkStateService.getBookmarkById().subscribe((bookmark) => {
+      this.nameFormControl.setValue(bookmark?.name ?? '');
+      this.urlFormControl.setValue(bookmark?.url ?? '');
+      this.bookmark = bookmark;
     });
   }
 
@@ -65,14 +71,17 @@ export class EditBookmarkComponent implements OnInit {
       const date = new Date();
       const dateString = date.toISOString().split('T')[0];
 
-      const bookmark: IBookmark = {
-        name: this.form.get('name')?.value as string,
-        url: this.form.get('resourceLink')?.value as string,
-        createdAt: dateString,
-        updatedAt: dateString,
+      const updatedAt = dateString;
+
+      const bookmark = {
+        ...this.bookmark,
+        updatedAt,
+        createdAt: this.bookmark?.createdAt || '',
+        name: this.nameFormControl.value || '',
+        url: this.urlFormControl.value || '',
       };
 
-      this.store.dispatch(updateBookmark({ bookmark }));
+      this.bookmarkStateService.dispatchUpdateBookmark(bookmark);
     } else {
       console.log('Form is invalid');
     }

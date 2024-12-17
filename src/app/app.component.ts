@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
+import { ToastService } from './shared/services/toast/toast.service';
+import { ToastComponent } from './shared/components/toast/toast/toast.component';
+import { CommonModule } from '@angular/common';
+import { SpinnerComponent } from './shared/components/spinner/spinner/spinner.component';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +12,16 @@ import { HeaderComponent } from './shared/components/header/header.component';
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [RouterModule, HeaderComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    HeaderComponent,
+    ToastComponent,
+    SpinnerComponent,
+  ],
 })
 export class AppComponent {
   title = 'Bookmarker';
+
+  constructor(public toastService: ToastService) {}
 }

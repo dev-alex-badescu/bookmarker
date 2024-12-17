@@ -9,6 +9,13 @@ const bookmarkFeatureSelector =
 
 export const bookmarkSelectors = bookmarkAdapter.getSelectors();
 
+export const getBookmarkLoading = createSelector(
+  bookmarkFeatureSelector,
+  (state) => {
+    return state.loading;
+  }
+);
+
 export const getBookmarks = createSelector(
   bookmarkFeatureSelector,
   bookmarkSelectors.selectAll

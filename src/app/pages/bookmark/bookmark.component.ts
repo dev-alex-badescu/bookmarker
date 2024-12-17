@@ -5,11 +5,9 @@ import { CardComponent } from '../../shared/components/card/card.component';
 import { IBookmark } from '../../models/IBookmark.model';
 import { Observable } from 'rxjs';
 import { RouterLink } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../state/app/app.state';
-import { loadBookmarks } from '../../state/bookmark/bookmark.actions';
-import { getBookmarks } from '../../state/bookmark/bookmark.selector';
 import { HeaderComponent } from '../../shared/components/header/header.component';
+import { BookmarkStateService } from '../../state/services/bookmark-state/bookmark-state.service';
+import { SpinnerComponent } from '../../shared/components/spinner/spinner/spinner.component';
 
 @Component({
   selector: 'app-bookmark',
@@ -20,17 +18,19 @@ import { HeaderComponent } from '../../shared/components/header/header.component
     CardComponent,
     RouterLink,
     HeaderComponent,
+    SpinnerComponent,
   ],
   templateUrl: './bookmark.component.html',
   styleUrl: './bookmark.component.css',
 })
 export class BookmarkComponent implements OnInit {
   bookmarks$?: Observable<IBookmark[]>;
+  bookmarkLoading$?: Observable<boolean>;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private bookmarkStateService: BookmarkStateService) {}
 
   ngOnInit(): void {
-    this.store.dispatch(loadBookmarks());
-    this.bookmarks$ = this.store.select(getBookmarks);
+    this.bookmarkLoading$ = this.bookmarkStateService.getBookmarkLoading();
+    this.bookmarks$ = this.bookmarkStateService.getBookmarks();
   }
 }

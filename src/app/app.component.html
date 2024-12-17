@@ -1,1 +1,9 @@
+<div *ngIf="toastService.showToast$ | async">
+  <app-toast
+    [message]="(toastService.toastMessage$ | async) || ''"
+    [type]="(toastService.toastType$ | async) || 'success'"
+  >
+  </app-toast>
+</div>
+
 <router-outlet></router-outlet>

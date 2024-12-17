@@ -4,6 +4,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
@@ -13,13 +14,15 @@ import { CommonModule } from '@angular/common';
     MatToolbarModule,
     MatInputModule,
     MatFormFieldModule,
-    MatInputModule,
     MatIconModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './input.component.html',
-  styleUrl: './input.component.css',
+  styleUrls: ['./input.component.css'],
 })
 export class InputComponent {
+  @Input() control = new FormControl();
   @Input() placeholder = '';
   @Input() icon = '';
+  @Input() label = '';
 }

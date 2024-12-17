@@ -1,4 +1,3 @@
-//[BOOKMARK]
 export const LOAD_BOOKMARK_ACTION = '[Bookmark] load bookmarks';
 export const LOAD_BOOKMARK_SUCCESS_ACTION = '[Bookmark] load success bookmarks';
 export const LOAD_BOOKMARK_FAIL_ACTION = '[Bookmark] load fail bookmarks';

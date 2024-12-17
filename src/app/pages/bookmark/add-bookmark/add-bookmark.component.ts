@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -11,11 +11,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { BookmarkState } from '../../../state/shared/models/bookmark-state.model';
-import { Store } from '@ngrx/store';
-import { createBookmark } from '../../../state/bookmark/bookmark.actions';
 import { IBookmark } from '../../../models/IBookmark.model';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { InputComponent } from '../../../shared/controls/input/input.component';
+import { BookmarkStateService } from '../../../state/services/bookmark-state/bookmark-state.service';
+import { SpinnerComponent } from '../../../shared/components/spinner/spinner/spinner.component';
+import { Observable } from 'rxjs';
+import { urlValidator } from '../../../shared/validators/url.validator';
 
 @Component({
   selector: 'app-add-bookmark',
@@ -25,25 +29,34 @@ import { HeaderComponent } from '../../../shared/components/header/header.compon
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatCardModule,
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,
     HeaderComponent,
+    MatIconModule,
+    MatDividerModule,
+    InputComponent,
+    SpinnerComponent,
   ],
   templateUrl: './add-bookmark.component.html',
   styleUrl: './add-bookmark.component.css',
 })
 export class AddBookmarkComponent implements OnInit {
-  form: FormGroup;
+  bookmarkLoading$?: Observable<boolean>;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private store: Store<BookmarkState>
-  ) {
-    this.form = this.formBuilder.group({
-      name: ['', Validators.required],
-      resourceLink: ['', Validators.required],
-    });
+  nameFormControl = new FormControl('', Validators.required);
+  urlFormControl = new FormControl('', [Validators.required, urlValidator()]);
+
+  form = new FormGroup({
+    nameFormControl: this.nameFormControl,
+    urlFormControl: this.urlFormControl,
+  });
+
+  constructor(private bookmarkStateService: BookmarkStateService) {}
+
+  ngOnInit(): void {
+    this.bookmarkLoading$ = this.bookmarkStateService.getBookmarkLoading();
   }
 
   onSubmit() {
@@ -52,16 +65,15 @@ export class AddBookmarkComponent implements OnInit {
       const dateString = date.toISOString().split('T')[0];
 
       const bookmark: IBookmark = {
-        name: this.form.get('name')?.value as string,
-        url: this.form.get('resourceLink')?.value as string,
+        name: this.nameFormControl.value as string,
+        url: this.urlFormControl.value as string,
         createdAt: dateString,
         updatedAt: dateString,
       };
 
-      this.store.dispatch(createBookmark({ bookmark }));
+      this.bookmarkStateService.dispatchCreateBookmark(bookmark);
     } else {
       console.log('Form is invalid');
     }
   }
-  ngOnInit(): void {}
 }
