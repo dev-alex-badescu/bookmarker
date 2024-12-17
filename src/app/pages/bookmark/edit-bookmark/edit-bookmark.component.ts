@@ -17,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { InputComponent } from '../../../shared/controls/input/input.component';
 import { BookmarkStateService } from '../../../state/services/bookmark-state/bookmark-state.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner/spinner.component';
 import { urlValidator } from '../../../shared/validators/url.validator';
 
@@ -43,6 +43,7 @@ import { urlValidator } from '../../../shared/validators/url.validator';
 })
 export class EditBookmarkComponent implements OnInit {
   @Input() bookmark?: IBookmark | null;
+  private destroy$ = new Subject<void>();
 
   bookmarkLoading$?: Observable<boolean>;
 
@@ -58,12 +59,14 @@ export class EditBookmarkComponent implements OnInit {
 
   ngOnInit(): void {
     this.bookmarkLoading$ = this.bookmarkStateService.getBookmarkLoading();
-    //TODO: DISTORY THIS
-    this.bookmarkStateService.getBookmarkById().subscribe((bookmark) => {
-      this.nameFormControl.setValue(bookmark?.name ?? '');
-      this.urlFormControl.setValue(bookmark?.url ?? '');
-      this.bookmark = bookmark;
-    });
+    this.bookmarkStateService
+      .getBookmarkById()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((bookmark) => {
+        this.nameFormControl.setValue(bookmark?.name ?? '');
+        this.urlFormControl.setValue(bookmark?.url ?? '');
+        this.bookmark = bookmark;
+      });
   }
 
   onSubmit() {
@@ -85,5 +88,14 @@ export class EditBookmarkComponent implements OnInit {
     } else {
       console.log('Form is invalid');
     }
+  }
+
+  ngOnDestroy() {
+    this.distroy();
+  }
+
+  private distroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

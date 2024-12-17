@@ -16,15 +16,15 @@ import {
 import { Update } from '@ngrx/entity';
 import { IBookmark } from '../../models/IBookmark.model';
 import { ToastService } from '../../shared/services/toast/toast.service';
-import { BookmarkStateService } from '../services/bookmark-state/bookmark-state.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BookmarkEffects {
   constructor(
+    private router: Router,
     private bookmarkService: BookmarkService,
-    private bookmarkStateService: BookmarkStateService,
     private toastService: ToastService
   ) {}
 
@@ -95,18 +95,29 @@ export class BookmarkEffects {
     );
   });
 
-  // updateBookmarkSuccess$ = createEffect(
-  //   () => {
-  //     return inject(Actions).pipe(
-  //       ofType(updateBookmarkSuccess),
-  //       tap(() => {
-  //         console.log('DAAAAA INTRA AICI');
-  //         this.bookmarkStateService.dispatchLoadBookmarks();
-  //       })
-  //     );
-  //   },
-  //   { dispatch: false }
-  // );
+  createBookmarkSuccess$ = createEffect(
+    () => {
+      return inject(Actions).pipe(
+        ofType(createBookmarkSuccess),
+        tap(() => {
+          this.router.navigate(['/home']);
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  updateBookmarkSuccess$ = createEffect(
+    () => {
+      return inject(Actions).pipe(
+        ofType(updateBookmarkSuccess),
+        tap(() => {
+          this.router.navigate(['/home']);
+        })
+      );
+    },
+    { dispatch: false }
+  );
 
   private orderByDate(bookmarks: IBookmark[]) {
     const sortedBookmarks = bookmarks.sort(
