@@ -5,7 +5,6 @@ import { IBookmark } from '../../../models/IBookmark.model';
 import { GridListComponent } from '../grid-list/grid-list.component';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { DateCategoryPipe } from '../../../pipes/date-category/date-category.pipe';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -17,7 +16,6 @@ import { RouterLink } from '@angular/router';
     MatGridListModule,
     GridListComponent,
     MatIconModule,
-    DateCategoryPipe,
     RouterLink,
   ],
   templateUrl: './bookmark-card.component.html',
