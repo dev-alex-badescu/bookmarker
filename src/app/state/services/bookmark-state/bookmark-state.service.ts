@@ -14,7 +14,7 @@ import {
 import { IBookmark } from '../../../models/IBookmark.model';
 import { TimeRangeFilter } from '../../../shared/consts/timeRangeFilter.const';
 import { isToday, isYesterday } from 'date-fns';
-import { map } from 'rxjs';
+import { map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -46,6 +46,24 @@ export class BookmarkStateService {
     return this.store
       .select(getBookmarks)
       .pipe(map((bookmarks) => this.applyFilter(bookmarks, filter)));
+  }
+
+  getFilterBookmarksByName(searchText: string) {
+    const bookmarks$ = this.getBookmarks();
+
+    if (!bookmarks$) {
+      return of([]);
+    }
+
+    return bookmarks$.pipe(
+      map((bookmarks) =>
+        searchText
+          ? bookmarks.filter((bookmark) =>
+              bookmark.name.toLowerCase().includes(searchText.toLowerCase())
+            )
+          : []
+      )
+    );
   }
 
   private applyFilter(

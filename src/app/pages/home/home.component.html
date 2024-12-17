@@ -1,1 +1,18 @@
-<app-header></app-header> <app-bookmark></app-bookmark>
+<app-header>
+  <div content>
+    <app-input
+      placeholder="Filter bookmarks..."
+      place="Filter bookmarks..."
+      icon="search"
+      [control]="searchFormControl"
+    ></app-input>
+  </div>
+</app-header>
+<app-bookmark></app-bookmark>
+
+<ng-container *ngIf="searchFormControl.value">
+  <div>Results for "{{ searchFormControl.value }}"</div>
+  <div *ngFor="let item of filteredBookmarks$ | async">
+    <app-bookmark-card [bookmark]="item"></app-bookmark-card>
+  </div>
+</ng-container>

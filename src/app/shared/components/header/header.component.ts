@@ -13,14 +13,7 @@ import { RouterLink } from '@angular/router';
 })
 export class HeaderComponent {
   constructor() {}
-
   @Input() title = 'Bookmarker';
-
-  value: string = '';
-
-  clearInput() {
-    this.value = '';
-  }
 
   search() {}
 }

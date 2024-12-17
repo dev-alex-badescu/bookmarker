@@ -11,3 +11,8 @@ export const UPDATE_BOOKMARK_ACTION = '[Bookmark] update bookmark start';
 export const UPDATE_BOOKMARK_SUCCESS_ACTION =
   '[Bookmark] update bookmark success';
 export const UPDATE_BOOKMARK_FAIL_ACTION = '[Bookmark] update bookmark fail';
+
+export const UPDATE_BOOKMARKS_ACTION = '[Bookmark] update bookmarks start';
+export const UPDATE_BOOKMARKS_SUCCESS_ACTION =
+  '[Bookmark] update bookmarks success';
+export const UPDATE_BOOKMARK_SFAIL_ACTION = '[Bookmark] update bookmarks fail';

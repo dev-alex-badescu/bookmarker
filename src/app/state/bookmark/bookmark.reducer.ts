@@ -36,6 +36,7 @@ const _bookmarkReducer = createReducer(
       error: action.error,
     };
   }),
+
   on(createBookmark, (state) => {
     return {
       ...state,

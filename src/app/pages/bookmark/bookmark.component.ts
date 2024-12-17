@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BookmarkCardComponent } from '../../shared/components/bookmark-card/bookmark-card.component';
 import { CardComponent } from '../../shared/components/card/card.component';
 import { IBookmark } from '../../models/IBookmark.model';

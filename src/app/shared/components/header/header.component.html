@@ -1,13 +1,15 @@
 <mat-toolbar color="primary">
-  <span [routerLink]="['/', 'home']">
-    {{ title }}
-  </span>
+  <div class="column start">
+    <h2 [routerLink]="['/', 'home']">
+      {{ title }}
+    </h2>
+  </div>
 
-  <span class="space"></span>
+  <div class="column center">
+    <ng-content select="[content]"></ng-content>
+  </div>
 
-  <app-input label="Filter bookmarks..." icon="search"></app-input>
-
-  <span class="space"></span>
-
-  <span [routerLink]="['/', 'home', 'add']"> <mat-icon>add</mat-icon></span>
+  <div class="column end">
+    <span [routerLink]="['/', 'home', 'add']"> <mat-icon>add</mat-icon></span>
+  </div>
 </mat-toolbar>
