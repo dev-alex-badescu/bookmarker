@@ -81,14 +81,31 @@ export class BookmarkStateService {
 
     switch (filter) {
       case TimeRangeFilter.Today:
-        return bookmarks.filter((b) => isToday(new Date(b.updatedAt)));
+        return bookmarks
+          .filter((b) => isToday(new Date(b.updatedAt)))
+          .sort(
+            (a, b) =>
+              new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+          );
       case TimeRangeFilter.Yesterday:
-        return bookmarks.filter((b) => isYesterday(new Date(b.updatedAt)));
+        return bookmarks
+          .filter((b) => isYesterday(new Date(b.updatedAt)))
+          .sort(
+            (a, b) =>
+              new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+          );
       case TimeRangeFilter.Older:
-        return bookmarks.filter(
-          (b) =>
-            new Date(b.updatedAt) < new Date(now.setDate(now.getDate() - 1))
-        );
+        return bookmarks
+          .filter((b) => {
+            return (
+              !isToday(new Date(b.updatedAt)) &&
+              !isYesterday(new Date(b.updatedAt))
+            );
+          })
+          .sort(
+            (a, b) =>
+              new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+          );
       default:
         return bookmarks;
     }

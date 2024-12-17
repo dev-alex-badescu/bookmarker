@@ -35,7 +35,7 @@ export class BookmarkEffects {
         return this.bookmarkService.getBookmarks().pipe(
           map((bookmarks) => {
             return loadBookmarksSuccess({
-              bookmarks: this.orderByDate(bookmarks),
+              bookmarks: bookmarks,
             });
           }),
           catchError((error) => {
@@ -118,13 +118,4 @@ export class BookmarkEffects {
     },
     { dispatch: false }
   );
-
-  private orderByDate(bookmarks: IBookmark[]) {
-    const sortedBookmarks = bookmarks.sort(
-      (a, b) =>
-        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-    );
-
-    return sortedBookmarks;
-  }
 }
