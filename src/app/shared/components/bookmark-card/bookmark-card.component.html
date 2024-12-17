@@ -4,7 +4,7 @@
       <div content>
         <div class="row">
           <div class="column start d-flex align-center">
-            <span><mat-icon>bookmark</mat-icon></span>
+            <span><mat-icon class="gray-color">bookmark</mat-icon></span>
             <div class="d-grid" style="padding: 0px 10px">
               <span>{{ bookmark.name }}</span>
               <span
@@ -15,7 +15,7 @@
 
           <div class="column end">
             <span
-              class="button-effect"
+              class="button-effect gray-color"
               [routerLink]="['/', 'home', 'bookmark', bookmark.id]"
               ><mat-icon>edit</mat-icon></span
             >

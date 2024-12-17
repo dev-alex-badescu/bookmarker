@@ -1,19 +1,32 @@
 <app-header>
   <div content>
     <app-input
+      [inputColor]="'warn'"
       placeholder="Filter bookmarks..."
-      place="Filter bookmarks..."
+      label="Filter bookmarks..."
       icon="search"
       [control]="searchFormControl"
     ></app-input>
   </div>
 </app-header>
 
-<ng-container *ngIf="searchFormControl.value">
-  <div>Results for "{{ searchFormControl.value }}"</div>
-  <div *ngFor="let item of filteredBookmarks$ | async">
-    <app-bookmark-card [bookmark]="item"></app-bookmark-card>
-  </div>
-</ng-container>
+<router-outlet *ngIf="!searchFormControl.value"></router-outlet>
 
-<router-outlet></router-outlet>
+<div class="container">
+  <ng-container *ngIf="searchFormControl.value">
+    <div class="gray-color">
+      Results for <i>"{{ searchFormControl.value }}"</i>
+    </div>
+    <div *ngIf="filteredBookmarks$ | async as filteredBookmarks">
+      <div *ngIf="filteredBookmarks.length > 0; else noResults">
+        <div *ngFor="let item of filteredBookmarks">
+          <app-bookmark-card [bookmark]="item"></app-bookmark-card>
+        </div>
+      </div>
+
+      <ng-template #noResults>
+        <div>No results found</div>
+      </ng-template>
+    </div>
+  </ng-container>
+</div>

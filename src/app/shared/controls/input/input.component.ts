@@ -25,4 +25,6 @@ export class InputComponent {
   @Input() placeholder = '';
   @Input() icon = '';
   @Input() label = '';
+  @Input() width = 50;
+  @Input() inputColor = 'warn';
 }

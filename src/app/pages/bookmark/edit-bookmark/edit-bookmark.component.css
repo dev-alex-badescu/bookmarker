@@ -4,4 +4,13 @@
     padding: 16px;
   }
   
+
+  
+  .input-30 {
+    flex: 0 0 30%; /* Lățime fixă de 30% */
+  }
+  
+  .input-70 {
+    flex: 0 0 70%; /* Lățime fixă de 70% */
+  }
   

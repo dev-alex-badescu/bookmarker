@@ -1,27 +1,37 @@
-<ng-container
-  *ngIf="(bookmarkLoading$ | async) === false; else loading"
-  class="bookmarker-container"
->
-  <app-card>
-    <div content>
-      <h3>Today</h3>
-      <div *ngFor="let item of todayBookmarks$ | async">
-        <app-bookmark-card [bookmark]="item"></app-bookmark-card>
-      </div>
+<div class="container">
+  <ng-container *ngIf="(bookmarkLoading$ | async) === false; else loading">
+    <app-card class="bookmarker-container">
+      <div content>
+        <div *ngIf="todayBookmarks$ | async as todayBookmarks">
+          <div *ngIf="todayBookmarks.length > 0">
+            <h4 class="gray-color">Today</h4>
+            <div *ngFor="let item of todayBookmarks">
+              <app-bookmark-card [bookmark]="item"></app-bookmark-card>
+            </div>
+          </div>
+        </div>
 
-      <h3>Yesterday</h3>
-      <div *ngFor="let item of yesterdayBookmarks$ | async">
-        <app-bookmark-card [bookmark]="item"></app-bookmark-card>
-      </div>
+        <div *ngIf="yesterdayBookmarks$ | async as yesterdayBookmarks">
+          <div *ngIf="yesterdayBookmarks.length > 0">
+            <h4 class="gray-color">Yesterday</h4>
+            <div *ngFor="let item of yesterdayBookmarks">
+              <app-bookmark-card [bookmark]="item"></app-bookmark-card>
+            </div>
+          </div>
+        </div>
 
-      <h3>Older</h3>
-      <div *ngFor="let item of olderBookmarks$ | async">
-        <app-bookmark-card [bookmark]="item"></app-bookmark-card>
+        <div *ngIf="olderBookmarks$ | async as olderBookmarks">
+          <div *ngIf="olderBookmarks.length > 0">
+            <h4 class="gray-color">Older</h4>
+            <div *ngFor="let item of olderBookmarks">
+              <app-bookmark-card [bookmark]="item"></app-bookmark-card>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </app-card>
-</ng-container>
-
+    </app-card>
+  </ng-container>
+</div>
 <ng-template content #loading>
   <ng-container *ngIf="bookmarkLoading$ | async as bookmarkLoading">
     <app-spinner [visibility]="bookmarkLoading"></app-spinner>

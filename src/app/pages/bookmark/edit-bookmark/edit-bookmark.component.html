@@ -1,24 +1,36 @@
 <ng-container *ngIf="(bookmarkLoading$ | async) === false; else loading">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="center-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
     <mat-card>
       <mat-card-header class="card-header">
-        <div class="header-content">
-          <h2>Update Existing Bookmark</h2>
-          <span>Type bookmark name and url</span>
+        <div class="header-content d-flex w-100" style="align-items: center">
+          <h4 style="width: 30%">Edit Existing Bookmark</h4>
+          <span style="width: 60%" class="gray-color"
+            >Type bookmark name and url</span
+          >
+          <mat-icon
+            style="width: 10%; text-align: right"
+            class="bookmark-icon gray-color"
+            >bookmark_border</mat-icon
+          >
         </div>
-        <mat-icon class="bookmark-icon">bookmark_border</mat-icon>
       </mat-card-header>
       <mat-card-content>
-        <app-input
-          placeholder="Enter name"
-          label="Name"
-          [control]="nameFormControl"
-        ></app-input>
-        <app-input
-          placeholder="Enter URL"
-          label="URL"
-          [control]="urlFormControl"
-        ></app-input>
+        <div class="d-flex">
+          <app-input
+            style="width: 30%"
+            placeholder="Enter name"
+            label="Name"
+            [width]="90"
+            [control]="nameFormControl"
+          ></app-input>
+          <app-input
+            style="width: 70%"
+            [width]="100"
+            placeholder="Enter URL"
+            label="URL"
+            [control]="urlFormControl"
+          ></app-input>
+        </div>
       </mat-card-content>
       <mat-divider></mat-divider>
       <mat-card-actions class="actions">

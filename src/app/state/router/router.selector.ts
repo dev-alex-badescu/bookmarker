@@ -7,7 +7,5 @@ export const routerStateSelector =
   createFeatureSelector<RouterReducerState<RouterStateUrl>>(ROUTE_STATE_NAME);
 
 export const getCurrentRoute = createSelector(routerStateSelector, (router) => {
-  console.log('router-->', router);
-
   return router.state;
 });

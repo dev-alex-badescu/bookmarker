@@ -9,7 +9,9 @@ import {
   debounceTime,
   distinctUntilChanged,
   Observable,
+  Subject,
   switchMap,
+  takeUntil,
 } from 'rxjs';
 import { IBookmark } from '../../models/IBookmark.model';
 import { BookmarkCardComponent } from '../../shared/components/bookmark-card/bookmark-card.component';
@@ -31,6 +33,8 @@ import { RouterModule } from '@angular/router';
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
+  private destroy$ = new Subject<void>();
+
   filteredBookmarks$: Observable<IBookmark[]> | undefined;
   searchFormControl = new FormControl('');
 
@@ -38,6 +42,14 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.bookmarkStateService.dispatchLoadBookmarks();
+
+    this.bookmarkStateService
+      .getCurrentRoute()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.searchFormControl.setValue('');
+      });
+
     this.setupSearch();
   }
 
@@ -49,5 +61,14 @@ export class HomeComponent implements OnInit {
         this.bookmarkStateService.getFilterBookmarksByName(searchText ?? '')
       )
     );
+  }
+
+  ngOnDestroy() {
+    this.distroy();
+  }
+
+  private distroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

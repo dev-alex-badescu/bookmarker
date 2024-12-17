@@ -15,6 +15,7 @@ import { IBookmark } from '../../../models/IBookmark.model';
 import { TimeRangeFilter } from '../../../shared/consts/timeRangeFilter.const';
 import { isToday, isYesterday } from 'date-fns';
 import { map, of } from 'rxjs';
+import { getCurrentRoute } from '../../router/router.selector';
 
 @Injectable({
   providedIn: 'root',
@@ -40,6 +41,10 @@ export class BookmarkStateService {
 
   getBookmarkLoading() {
     return this.store.select(getBookmarkLoading);
+  }
+
+  getCurrentRoute() {
+    return this.store.select(getCurrentRoute);
   }
 
   getBookmarks(filter?: TimeRangeFilter) {

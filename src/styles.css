@@ -55,3 +55,19 @@ body {
     transition: transform 0.2s ease-in-out; 
   }
   
+
+  .container {
+    width: 900px; 
+    margin: 50px auto;
+  }
+  
+
+  .gray-color {
+    color: #757575;
+  }
+
+  .w-100 {
+    width: 100%;
+  }
+
+  
