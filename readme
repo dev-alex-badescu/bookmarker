@@ -1,0 +1,3 @@
+Install packages command: npm install --legacy-peer-deps
+Start project: ng serve
+URL: http://localhost:4200/
